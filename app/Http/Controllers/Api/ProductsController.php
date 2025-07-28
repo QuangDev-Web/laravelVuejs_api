@@ -13,6 +13,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        // Đây là cú pháp Eloquent ORM để eager load (nạp trước) các quan hệ category và brand liên kết với Product.
         return Product::with(['category','brand'])->get();
     }
 
@@ -21,23 +22,30 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+        \Log::info('Dữ liệu từ request:', $request->all());
+
+        // Validate the incoming request
         $request->validate([
-            "name" => "required|string",
-            "img_url" => "nullable|string|url",
-            "description" => "nullable|string",
-            "price" => "required|numberic",
-            "category_id" => "required|exists:categories,id",
-            "brand_id" => "required|exists:brands,id"
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
+            'brand_id' => 'required|exists:brands,id',
+            // Phải đúng form của 1 url
+            'img_url' => 'nullable|string|url',  // Validation for img_url
         ]);
+
+        // Create a new product
         $product = Product::create([
-            "name" => $request->name,
-            "img_url" => $request->img_url,
-            "description" => $request->description,
-            "price" => $request->price,
-            "category_id" => $request->category_id,
-            "brand_id" => $request->brand_id
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+            'brand_id' => $request->brand_id,
+            'img_url' => $request->img_url,  // Save img_url if provided
         ]);
-        return response()->json($product,201);
+
+        return response()->json($product, 201);
     }
 
     /**
@@ -45,8 +53,8 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Product::with(['caterory','brand'])->findOrFail($id);
-        return response().json($product);
+        $product = Product::with(['category','brand'])->findOrFail($id);
+        return response()->json($product);
     }
 
     /**
@@ -58,11 +66,11 @@ class ProductsController extends Controller
             "name" => "required|string",
             "img_url" => "nullable|string|url",
             "description" => "nullable|string",
-            "price" => "required|numberic",
+            "price" => "required|numeric",
             "category_id" => "required|exists:categories,id",
-            "brand_id" => "required|exists:brand,id"
+            "brand_id" => "required|exists:brands,id"
         ]);
-        $product = Product::findOrFailt($id);
+        $product = Product::findOrFail($id);
 
         $product->update([
             "name" => $request->name,
@@ -72,7 +80,7 @@ class ProductsController extends Controller
             "category_id" => $request->category_id,
             "brand_id" => $request->brand_id
         ]);
-        return response().json($product);
+        return response()->json($product);
     }
 
     /**
