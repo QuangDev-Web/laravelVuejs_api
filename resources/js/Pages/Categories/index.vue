@@ -141,7 +141,6 @@ export default {
                 if(confirm('Are you sure to delete this category ?')) {
                     await axios.delete(`http://127.0.0.1:8000/api/categories/${id}`);
                     this.categories = this.categories.filter(category => category.id !== id);
-                    alert('Category deleted successfully');
                 }
             } catch (error) {
                 console.error('Error deleting category: ', error);

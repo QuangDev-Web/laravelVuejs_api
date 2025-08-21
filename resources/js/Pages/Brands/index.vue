@@ -141,7 +141,6 @@ export default {
                 if(confirm('Are you sure to delete this brand ?')) {
                     await axios.delete(`http://127.0.0.1:8000/api/brands/${id}`);
                     this.brands = this.brands.filter(brand => brand.id !== id);
-                    alert('Brand deleted successfully');
                 }
             } catch (error) {
                 console.error('Error deleting brand: ', error);
