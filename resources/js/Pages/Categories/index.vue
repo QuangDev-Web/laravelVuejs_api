@@ -1,12 +1,16 @@
 <template>
     <div>
-        <h1>Categories 123123123123</h1>
+        <Dashboard></Dashboard>
+        <h1>Categories</h1>
     </div>
 </template>
 
 <script>
+import Dashboard from '../Dashboard.vue';
 export default {
-
+    components: {
+        Dashboard
+    }
 }
 </script>
 

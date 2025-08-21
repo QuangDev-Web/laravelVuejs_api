@@ -1,12 +1,17 @@
 <template>
     <div>
+        <Dashboard></Dashboard>
         <h1>Brands</h1>
     </div>
 </template>
 
 <script>
-export default {
+import Dashboard from '../Dashboard.vue';
 
+export default {
+    components: {
+        Dashboard
+    }
 }
 </script>
 
