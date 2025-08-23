@@ -19,6 +19,9 @@
                 <li>
                     <Link :href="route('checkout.index')" class="text-gray-900 dark:text-white hover:underline">Checkout</Link>
                 </li>
+                <li>
+                    <Link :href="route('orders.index')" class="text-gray-900 dark:text-white hover:underline">Order</Link>
+                </li>
             </ul>
         </div>
     </div>

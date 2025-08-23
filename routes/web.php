@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('brands', BrandController::class);
     Route::resource('products', ProductController::class);
     Route::resource('checkout', CheckoutController::class);
-    Route::resource('order', OrderController::class);
+    Route::resource('orders', OrderController::class);
 });
 
 require __DIR__.'/auth.php';
