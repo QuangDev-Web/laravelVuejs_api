@@ -113,9 +113,25 @@ export default {
         if(savedCart) {
             this.cart = JSON.parse(savedCart);
         }
-        console.log('cart: ', this.cart);
     },
     methods: {
+        async initiatePayment() {
+            try {
+                // Replace with your API endpoint
+                const response = await axios.post("/api/payment", {
+                    amount: this.total, // Replace with actual amount
+                });
+
+                if (response.data.payment_url) {
+                    window.location.href = response.data.payment_url;
+                } else {
+                    alert("Failed to generate payment URL");
+                }
+            } catch (error) {
+                console.error("Payment error:", error);
+                alert("An error occurred during payment initialization.");
+            }
+        },
         async handleSubmit() {
             // Prepare the data to be sent (shipping info and cart items)
             const orderData = {
